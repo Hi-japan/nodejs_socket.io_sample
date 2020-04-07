@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html style="background-color: #eaf3ff">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>チャットアプリ</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+  <style>
+    * {margin:0; padding:0; box-sizing:border-box; }
+    body { font-size: 14px; max-width: 80rem; width: 100%; margin: 0 auto; padding: 15px; }
+    .myMessage { border-radius: 1rem; word-wrap: break-word; width: 24rem; float: right;}
+    .myMessageId{ text-align:reight; float:right; margin-right:1rem; margin-top:0.2rem; font-size:0.7rem;}
+    .otherMessage { border-radius: 1rem; word-wrap: break-word; width: 24rem; float: left;}
+    .otherMessageId{ text-align:left; float:left; margin-left:1rem; margin-top:0.2rem; font-size:0.7rem;}
+    .clerFloat {clear: both;}
+    #timeline { list-style-type: none; margin: 0; padding: 0; }
+    #timeline li { padding: 5px 10px; }
+  </style>
+</head>
+<section class="hero is-primary">
+  <div class="hero-body">
+    <div class="container">
+      <h1 class="title">
+        チャットアプリ
+      </h1>
+      <h2 class="subtitle">
+        このページを開いている人たちとチャットできます
+      </h2>
+    </div>
+  </div>
+</section>
+<body>
+  <div style="margin-bottom: 1rem;"></div>
+  <ul id="timeline"></ul>
+  <div id="last"></div>
+  <form id="chatSend" action="">
+    <input id="chatText" class="input is-rounded" placeholder="送信メッセージ" autocomplete="off"><button class="button is-primary is-rounded" style="width: 12rem; float: right;">送信</button>
+  </form>
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+<script>
+
+    function message(name, body) {
+      this.name = name
+      this.body = body
+    }
+
+    const name = Math.floor(Math.random() * 100000000)
+
+    let socket = io();
+    
+    $('form').submit(() => {
+      const sendBody = new message(name, $('#chatText').val())
+      socket.emit('chat message', sendBody)
+      $('#chatText').val('')
+      return false
+    })
+
+    socket.on('chat message', (receive) => {
+      const now = new Date();
+      const receiveTime = now.getHours() + ":" + now.getMinutes();
+
+      if (receive.name == name) {
+        const myMessageDom = "<article class=\"message is-success myMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"myMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
+        $('#last').append(myMessageDom)
+      } else {
+        const otherMessageDom = "<article class=\"message is-dark otherMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"otherMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
+        $('#last').append(otherMessageDom)
+      }
+
+      const addSpanDom = "<div class=\"clerFloat\"></div>"
+      $('#last').append(addSpanDom)
+  })
+</script>
+</html>
