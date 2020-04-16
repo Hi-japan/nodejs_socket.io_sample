@@ -9,9 +9,9 @@
     * {margin:0; padding:0; box-sizing:border-box; }
     body { font-size: 14px; max-width: 80rem; width: 100%; margin: 0 auto; padding: 15px; }
     .myMessage { border-radius: 1rem; word-wrap: break-word; width: 24rem; float: right; max-width: 80%;}
-    .myMessageId{ text-align:reight; float:right; margin-right:1rem; margin-top:0.2rem; font-size:0.7rem;}
+    .myMessageId{ text-align:reight; float:right; margin-right:1rem; margin-top:-1.5rem; margin-bottom: 1rem; font-size:0.7rem;}
     .otherMessage { border-radius: 1rem; word-wrap: break-word; width: 24rem; float: left; max-width: 80%;}
-    .otherMessageId{ text-align:left; float:left; margin-left:1rem; margin-top:0.2rem; font-size:0.7rem;}
+    .otherMessageId{ text-align:left; float:left; margin-left:1rem; margin-top:-1.5rem; margin-bottom: 1rem; font-size:0.7rem;}
     .clerFloat {clear: both;}
     #timeline { list-style-type: none; margin: 0; padding: 0; }
     #timeline li { padding: 5px 10px; }
@@ -34,7 +34,8 @@
   <ul id="timeline"></ul>
   <div id="last"></div>
   <form id="chatSend" action="">
-    <input id="chatText" class="input is-rounded" placeholder="送信メッセージ" autocomplete="off"><button class="button is-primary is-rounded" style="width: 12rem; float: right;">送信</button>
+    <input id="chatText" class="input is-rounded" placeholder="送信メッセージ" autocomplete="off">
+    <button class="button is-primary is-rounded" style="width: 12rem; float: right; margin-top: 0.2rem;">送信</button>
   </form>
 </body>
 
@@ -63,10 +64,10 @@
       const receiveTime = now.getHours() + ":" + now.getMinutes();
 
       if (receive.name == name) {
-        const myMessageDom = "<article class=\"message is-success myMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"myMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
+        const myMessageDom = "<article class=\"message is-success myMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"clerFloat\"></div><div class=\"myMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
         $('#last').append(myMessageDom)
       } else {
-        const otherMessageDom = "<article class=\"message is-dark otherMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"otherMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
+        const otherMessageDom = "<article class=\"message is-dark otherMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"clerFloat\"></div><div class=\"otherMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
         $('#last').append(otherMessageDom)
       }
 
