@@ -19,7 +19,7 @@ https://saitodev.co/article/Node.js%E3%81%A8Socket.IO%E3%81%A7%E3%83%AA%E3%82%A2
 ## ローカル実行
 アプリをローカルで動かす場合は以下のコマンドを実行  
 
-npm install
+npm install  
 node app  
 
 以下へアクセス  
