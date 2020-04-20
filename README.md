@@ -1,10 +1,10 @@
 # nodejs_socket.io_sample
 
+![無題](https://user-images.githubusercontent.com/4074863/79753387-d016d100-8350-11ea-8bc7-bad7c8c0ccd6.png)
+
 node.jsでチャットアプリサンプルを動かしてみました。  
 以下のページが動作ページです。  
 ブラウザを2つ立ち上げてメッセージをそれぞれ入力すると、相手にもメッセージが送信されます。  
-
-![無題](https://user-images.githubusercontent.com/4074863/79753387-d016d100-8350-11ea-8bc7-bad7c8c0ccd6.png)
 
 https://morning-harbor-23751.herokuapp.com/
 
