@@ -1,0 +1,9 @@
+* {margin:0; padding:0; box-sizing:border-box; }
+body { font-size: 14px; max-width: 80rem; width: 100%; margin: 0 auto; padding: 15px; }
+.myMessage { border-radius: 1rem; word-wrap: break-word; width: 24rem; float: right; max-width: 80%;}
+.myMessageId{ text-align:reight; float:right; margin-right:1rem; margin-top:-1.5rem; margin-bottom: 1rem; font-size:0.7rem;}
+.otherMessage { border-radius: 1rem; word-wrap: break-word; width: 24rem; float: left; max-width: 80%;}
+.otherMessageId{ text-align:left; float:left; margin-left:1rem; margin-top:-1.5rem; margin-bottom: 1rem; font-size:0.7rem;}
+.clerFloat {clear: both;}
+#timeline { list-style-type: none; margin: 0; padding: 0; }
+#timeline li { padding: 5px 10px; }
