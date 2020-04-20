@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html style="background-color: #eaf3ff">
+
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>チャットアプリ</title>
@@ -19,6 +20,7 @@
     </div>
   </div>
 </section>
+
 <body>
   <div style="margin-bottom: 1rem;"></div>
   <ul id="timeline"></ul>
@@ -33,36 +35,37 @@
 <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
 <script>
 
-    function message(name, body) {
-      this.name = name
-      this.body = body
+  function message(name, body) {
+    this.name = name
+    this.body = body
+  }
+
+  const name = Math.floor(Math.random() * 100000000)
+
+  let socket = io();
+
+  $('form').submit(() => {
+    const sendBody = new message(name, $('#chatText').val())
+    socket.emit('chat message', sendBody)
+    $('#chatText').val('')
+    return false
+  })
+
+  socket.on('chat message', (receive) => {
+    const now = new Date();
+    const receiveTime = now.getHours() + ":" + now.getMinutes();
+
+    if (receive.name == name) {
+      const myMessageDom = "<article class=\"message is-success myMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"clerFloat\"></div><div class=\"myMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
+      $('#last').append(myMessageDom)
+    } else {
+      const otherMessageDom = "<article class=\"message is-dark otherMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"clerFloat\"></div><div class=\"otherMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
+      $('#last').append(otherMessageDom)
     }
 
-    const name = Math.floor(Math.random() * 100000000)
-
-    let socket = io();
-
-    $('form').submit(() => {
-      const sendBody = new message(name, $('#chatText').val())
-      socket.emit('chat message', sendBody)
-      $('#chatText').val('')
-      return false
-    })
-
-    socket.on('chat message', (receive) => {
-      const now = new Date();
-      const receiveTime = now.getHours() + ":" + now.getMinutes();
-
-      if (receive.name == name) {
-        const myMessageDom = "<article class=\"message is-success myMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"clerFloat\"></div><div class=\"myMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
-        $('#last').append(myMessageDom)
-      } else {
-        const otherMessageDom = "<article class=\"message is-dark otherMessage\"><div class=\"message-body\">" + receive.body + "</div></article>" + "<div class=\"clerFloat\"></div><div class=\"otherMessageId\">ID:" + receive.name + " time:" + receiveTime + " </div>"
-        $('#last').append(otherMessageDom)
-      }
-
-      const addSpanDom = "<div class=\"clerFloat\"></div>"
-      $('#last').append(addSpanDom)
+    const addSpanDom = "<div class=\"clerFloat\"></div>"
+    $('#last').append(addSpanDom)
   })
 </script>
+
 </html>
